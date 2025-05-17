@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Досье оперативника | ЧВК "Сармат"</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Основные стили контейнера досье */
+        .dossier {
+            background: url('images/military-texture.jpg') no-repeat center center;
+            background-size: cover;
+            border: 2px solid #ff5555;
+            padding: 30px;
+            max-width: 700px;
+            margin: 40px auto;
+            position: relative;
+            color: #e0e0e0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+            font-family: 'Courier New', monospace;
+        }
+
+        .dossier::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10,10,10,0.8);
+            z-index: -1;
+        }
+
+        /* Стили формы авторизации */
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: rgba(30,30,30,0.7);
+            border: 1px solid #ff5555;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .auth-form button {
+            background: linear-gradient(to right, #8B0000, #FF0000);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .auth-form button:hover {
+            background: linear-gradient(to right, #FF0000, #8B0000);
+        }
+
+        /* Стили заголовка досье */
+        .dossier-header {
+            border-bottom: 1px solid #ff5555;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Стили статусов */
+        .status-tag {
+            padding: 3px 10px;
+            background: #333;
+            font-weight: bold;
+        }
+
+        .status-pending { color: #FFA500; border: 1px solid #FFA500; }
+        .status-approved { color: #4CAF50; border: 1px solid #4CAF50; }
+        .status-rejected { color: #ff5555; border: 1px solid #ff5555; }
+
+        /* Сетка данных */
+        .dossier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .dossier-field {
+            margin-bottom: 15px;
+        }
+
+        .dossier-label {
+            color: #ff5555;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Стили секретного штампа */
+        .classified-stamp {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #ff5555;
+            font-size: 24px;
+            transform: rotate(15deg);
+            opacity: 0.7;
+        }
+
+        /* Стили для разрешенного доступа */
+        .access-granted {
+            background: rgba(0,100,0,0.3);
+            padding: 20px;
+            border-left: 3px solid #4CAF50;
+            margin-top: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 5px rgba(76, 175, 80, 0); }
+            50% { box-shadow: 0 0 15px rgba(76, 175, 80, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(76, 175, 80, 0); }
+        }
+
+        /* Анимации */
+        .loading-animation {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,85,85,.3);
+            border-radius: 50%;
+            border-top-color: #ff5555;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Стили для админ-кнопки */
+        #admin-panel-btn {
+            background: linear-gradient(to right, #8B0000, #FF0000);
+            margin: 20px auto;
+            display: none;
+            width: 80%;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="no-scroll">
+    <div class="grid"></div>
+    <header>
+        <img src="images/logo.png" alt="ЧВК Сармат" class="logo">
+    </header>
+    
+    <nav class="sidebar">
+        <div class="profile-btn-container">
+            <button class="profile-btn" onclick="window.location='profile.html'">Досье</button>
+        </div>
+        <ul class="main-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="history.html">История</a></li>
+            <li><a href="gallery.html">Галерея</a></li>
+            <li><a href="join.html">Вступление</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="dossier">
+            <div class="classified-stamp">СОВЕРШЕННО СЕКРЕТНО</div>
+            
+            <!-- Блок авторизации -->
+            <div id="auth-section">
+                <div class="auth-form">
+                    <h2>ДОСТУП К ДОСЬЕ</h2>
+                    <p>Для просмотра требуется авторизация</p>
+                    <input type="email" id="login-email" placeholder="Боевой email">
+                    <input type="password" id="login-password" placeholder="Код доступа">
+                    <button id="login-btn">ПОДТВЕРДИТЬ ЛИЧНОСТЬ</button>
+                    <p id="auth-message" style="color: #ff5555; margin-top: 15px;"></p>
+                    <p style="margin-top: 20px;">Нет аккаунта? <a href="join.html" style="color: #ff5555;">Подать заявку</a></p>
+                </div>
+            </div>
+
+            <!-- Содержимое профиля -->
+            <div id="profile-content" style="display: none;">
+                <div class="dossier-header">
+                    <h1>ДОСЬЕ ОПЕРАТИВНИКА</h1>
+                    <div id="status-tag" class="status-tag status-pending">STATUS: PENDING</div>
+                </div>
+
+                <div class="dossier-grid">
+                    <div class="dossier-field">
+                        <div class="dossier-label">Позывной</div>
+                        <div id="agent-callsign" class="dossier-value">[REDACTED]</div>
+                    </div>
+                    <div class="dossier-field">
+                        <div class="dossier-label">Discord ID</div>
+                        <div id="agent-discord" class="dossier-value">[REDACTED]</div>
+                    </div>
+                    <div class="dossier-field">
+                        <div class="dossier-label">Дата регистрации</div>
+                        <div id="agent-regdate" class="dossier-value">[REDACTED]</div>
+                    </div>
+                    <div class="dossier-field">
+                        <div class="dossier-label">Статус</div>
+                        <div id="agent-status" class="dossier-value">[REDACTED]</div>
+                    </div>
+                </div>
+
+                <!-- Блок разрешенного доступа -->
+                <div id="approved-info" style="display: none;">
+                    <div class="access-granted">
+                        <h3>▶ ДОСТУП РАЗРЕШЕН</h3>
+                        <p>Ваши учетные данные подтверждены. Приступайте к выполнению задания.</p>
+                        <a href="https://discord.gg/uw9PugqcCJ" class="btn-military">Перейти на сервер</a>
+                    </div>
+                </div>
+
+                <!-- Кнопка админ-панели -->
+                <button id="admin-panel-btn">АДМИН-ПАНЕЛЬ</button>
+
+                <!-- Кнопка выхода -->
+                <div style="margin-top: 30px; text-align: center;">
+                    <button id="logout-btn" style="background: #333; color: #ff5555; padding: 10px 20px; border: 1px solid #ff5555;">ЗАВЕРШИТЬ СЕАНС</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Firebase SDK -->
+    <script src="js/firebase-config.js" type="module"></script>
+    
+    <!-- Основная логика -->
+    <<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+        import { 
+            getFirestore,
+            doc,
+            getDoc 
+        } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBJ6VkW6Kru9xLnyN8G1EvS4gKESEoHH68",
+            authDomain: "authentication-cf670.firebaseapp.com",
+            projectId: "authentication-cf670",
+            storageBucket: "authentication-cf670.firebasestorage.app",
+            messagingSenderId: "135324689233",
+            appId: "1:135324689233:web:e0956a8ee78ca5aeff2970",
+            measurementId: "G-VXJY0F36N1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const authSection = document.getElementById('auth-section');
+        const profileContent = document.getElementById('profile-content');
+        const loginEmail = document.getElementById('login-email');
+        const loginPassword = document.getElementById('login-password');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const authMessage = document.getElementById('auth-message');
+        const adminPanelBtn = document.getElementById('admin-panel-btn');
+
+        const getAuthErrorMessage = (error) => {
+            switch(error.code) {
+                case 'auth/invalid-email': return 'Неверный формат email';
+                case 'auth/user-disabled': return 'Аккаунт заблокирован';
+                case 'auth/user-not-found':
+                case 'auth/wrong-password': 
+                    return 'Неверные учетные данные';
+                default: return 'Ошибка авторизации';
+            }
+        };
+
+        // Авторизация
+        loginBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            try {
+                loginBtn.disabled = true;
+                authMessage.textContent = "Проверка данных...";
+                authMessage.style.color = "#FFA500";
+
+                const userCredential = await signInWithEmailAndPassword(
+                    auth,
+                    loginEmail.value,
+                    loginPassword.value
+                );
+                
+                const user = userCredential.user;
+                
+                // Проверка прав администратора
+                const adminDoc = await getDoc(doc(db, "admins", user.uid));
+                if (adminDoc.exists()) {
+                    adminPanelBtn.style.display = 'block';
+                    // Загрузка данных пользователя
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+                        document.getElementById('agent-callsign').textContent = userData.callsign || 'Не указан';
+                        document.getElementById('agent-discord').textContent = userData.discordNickname || 'Не указан';
+                        document.getElementById('agent-regdate').textContent = userData.createdAt?.toDate().toLocaleDateString() || 'Не указана';
+                        document.getElementById('agent-status').textContent = userData.status || 'pending';
+                        
+                        // Обновление статуса
+                        const statusTag = document.getElementById('status-tag');
+                        statusTag.className = `status-tag status-${userData.status || 'pending'}`;
+                        statusTag.textContent = `STATUS: ${(userData.status || 'pending').toUpperCase()}`;
+                        
+                        if (userData.status === 'approved') {
+                            document.getElementById('approved-info').style.display = 'block';
+                        }
+                    }
+                }
+
+            } catch (error) {
+                authMessage.textContent = getAuthErrorMessage(error);
+                authMessage.style.color = "#ff5555";
+            } finally {
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Переход в админ-панель
+        adminPanelBtn.addEventListener('click', () => {
+            window.location.href = "admin.html";
+        });
+
+        // Выход из системы
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                adminPanelBtn.style.display = 'none';
+            } catch (error) {
+                console.error("Ошибка выхода:", error);
+            }
+        });
+
+        // Отслеживание состояния аутентификации
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                authSection.style.display = 'none';
+                profileContent.style.display = 'block';
+                
+                // Проверка прав администратора
+                const adminDoc = await getDoc(doc(db, "admins", user.uid));
+                if (adminDoc.exists()) {
+                    adminPanelBtn.style.display = 'block';
+                }
+                
+                // Загрузка данных пользователя
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    document.getElementById('agent-callsign').textContent = userData.callsign || 'Не указан';
+                    document.getElementById('agent-discord').textContent = userData.discordNickname || 'Не указан';
+                    document.getElementById('agent-regdate').textContent = userData.createdAt?.toDate().toLocaleDateString() || 'Не указана';
+                    document.getElementById('agent-status').textContent = userData.status || 'pending';
+                    
+                    // Обновление статуса
+                    const statusTag = document.getElementById('status-tag');
+                    statusTag.className = `status-tag status-${userData.status || 'pending'}`;
+                    statusTag.textContent = `STATUS: ${(userData.status || 'pending').toUpperCase()}`;
+                    
+                    if (userData.status === 'approved') {
+                        document.getElementById('approved-info').style.display = 'block';
+                    }
+                }
+            } else {
+                authSection.style.display = 'block';
+                profileContent.style.display = 'none';
+                adminPanelBtn.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

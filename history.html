@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧВК "Сармат" - История</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Специальные стили для этой страницы */
+        .classified-header {
+            font-family: 'Courier New', monospace;
+            color: #ff5555;
+            border-bottom: 1px dashed #ff5555;
+            padding-bottom: 5px;
+        }
+        
+        .agent-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid #333;
+            border-top: 3px solid #ff5555;
+            padding: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .agent-card::before {
+            content: "CONFIDENTIAL";
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 10px;
+            color: #ff5555;
+            opacity: 0.5;
+        }
+        
+        .war-photo {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border: 1px solid #444;
+            filter: sepia(30%) contrast(110%);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid"></div>
+    
+    <header>
+        <img src="images/logo.png" alt="ЧВК Сармат" class="logo">
+    </header>
+    
+    <nav class="sidebar">
+    <!-- Кнопка профиля вверху -->
+    <div class="profile-btn-container">
+        <button class="profile-btn" onclick="window.location='profile.html'">Досье</button>
+    </div>
+    
+    <!-- Основное меню ниже -->
+    <ul class="main-menu">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="history.html">История</a></li>
+        <li><a href="gallery.html">Галерея</a></li>
+        <li><a href="join.html">Вступление</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+    </ul>
+</nav>
+    
+    <main class="classified-container">
+        <!-- Секция основателей -->
+        <section class="agent-section">
+            <h2 class="classified-header">ОСНОВАНИЕ ОРГАНИЗАЦИИ</h2>
+            
+            <div class="agent-card">
+                <p><strong>Дата:</strong> 29 июля 2023 года</p>
+                <p><strong>Основатели:</strong> 6 бывших оперативников "Ската"</p>
+                
+                <div class="agents-grid">
+                    <div class="agent">
+                        <img src="images/image1.png" alt="Бобер" style="object-position: center 20%;">
+                        <p class="codename">БОБЕР</p>
+                        <p class="role">Инженер-подрывник</p>
+                    </div>
+                    <div class="agent">
+                        <img src="images/image2.png" alt="Шляпа" style="object-position: center 20%;">
+                        <p class="codename">ШЛЯПА</p>
+                        <p class="role">Стратег</p>
+                    </div>
+                    <div class="agent">
+                        <img src="images/image3.png" alt="Гюрза">
+                        <p class="codename">ГЮРЗА</p>
+                        <p class="role">Диверсант</p>
+                    </div>
+                    <div class="agent">
+                        <img src="images/image4.png" alt="Смерть" style="object-position: center 30%;">
+                        <p class="codename">СМЕРТЬ</p>
+                        <p class="role">Медик</p>
+                    </div>
+                    <div class="agent">
+                        <img src="images/image5.png" alt="Техас">
+                        <p class="codename">ТЕХАС</p>
+                        <p class="role">Штурмовик</p>
+                    </div>
+                    <div class="agent">
+                        <img src="images/image6.png" alt="Кедр">
+                        <p class="codename">КЕДР</p>
+                        <p class="role">Снайпер</p>
+                    </div>
+                </div>
+                
+                <p><strong>Цель:</strong> Защита острова Роноград от террора и тирании.</p>
+            </div>
+        </section>
+        
+        <!-- Секция конфликтов -->
+        <section class="agent-section">
+            <h2 class="classified-header">КЛЮЧЕВЫЕ ОПЕРАЦИИ</h2>
+            
+            <!-- Война 1 -->
+            <div class="agent-card">
+                <h3>ОПЕРАЦИЯ "КРОВАВЫЙ РАССВЕТ"</h3>
+                <p><strong>Дата:</strong> 27.09.2024</p>
+                <p><strong>Противник:</strong> Фракция "Тайфун"</p>
+                <p><strong>Причина:</strong> Попытка уничтожения всех на острове</p>
+                <p><strong>Локация:</strong> Остров Роноград</p>
+                <p><strong>Итог:</strong> Безоговорочная победа</p>
+                <img src="images/war1.jpg" class="war-photo" alt="Операция Кровавый Рассвет">
+            </div>
+            
+            <!-- Война 2 -->
+            <div class="agent-card">
+                <h3>ОПЕРАЦИЯ "СТАЛЬНОЙ ГРОМ"</h3>
+                <p><strong>Дата:</strong> 11.05.2024</p>
+                <p><strong>Противник:</strong> Альянс "Тайфун-Карасик"</p>
+                <p><strong>Причина:</strong> Установление тотального контроля</p>
+                <p><strong>Локация:</strong> Остров Роноград</p>
+                <p><strong>Итог:</strong> Разгром альянса</p>
+                <img src="images/war2.jpg" class="war-photo" alt="Операция Стальной Гром">
+            </div>
+            
+            <!-- Война 3 -->
+            <div class="agent-card">
+                <h3>ОПЕРАЦИЯ "ПЕСЧАНЫЙ УДАР"</h3>
+                <p><strong>Дата:</strong> 02.08.2024</p>
+                <p><strong>Противник:</strong> Глава фракции "Док"</p>
+                <p><strong>Причина:</strong> Неуважение к другим фракциям</p>
+                <p><strong>Локация:</strong> Пустыня неизвестного региона</p>
+                <p><strong>Итог:</strong> Ликвидация угрозы</p>
+                <img src="images/war3.jpg" class="war-photo" alt="Операция Песчаный Удар">
+            </div>
+            
+            <!-- Война 4 -->
+            <div class="agent-card">
+                <h3>ОПЕРАЦИЯ "ГОРНЫЙ МОЛОТ"</h3>
+                <p><strong>Дата:</strong> 05.10.2024</p>
+                <p><strong>Противник:</strong> Фракция "Гора"</p>
+                <p><strong>Причина:</strong> Поддержка союзных фракций</p>
+                <p><strong>Локация:</strong> Остров Роноград</p>
+                <p><strong>Итог:</strong> Тактическая победа</p>
+                <img src="images/war4.jpg" class="war-photo" alt="Операция Горный Молот">
+            </div>
+        </section>
+        
+        <!-- Текущий статус -->
+        <section class="agent-section">
+            <h2 class="classified-header">ТЕКУЩИЙ СТАТУС</h2>
+            <div class="agent-card">
+                <p><strong>Состав:</strong> 198 оперативников</p>
+                <p><strong>Базы:</strong></p>
+                <ul>
+                    <li>Главный штаб: Остров Роноград</li>
+                    <li>Передовой форпост: Константиновский район</li>
+                </ul>
+                <div class="motto">«КТО СДОХНЕТ — ТОТ ГЕЙ»</div>
+            </div>
+        </section>
+    </main>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>

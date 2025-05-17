@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧВК "Сармат 2.0" | Вступление</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="no-scroll">
+    <div class="grid"></div>
+    <header>
+        <img src="images/logo.png" alt="ЧВК Сармат" class="logo">
+    </header>
+    <nav class="sidebar">
+        <div class="profile-btn-container">
+            <button class="profile-btn" onclick="window.location='profile.html'">Досье</button>
+        </div>
+        <ul class="main-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="history.html">История</a></li>
+            <li><a href="gallery.html">Галерея</a></li>
+            <li><a href="join.html">Вступление</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="join-form">
+            <h1>Вступить в ЧВК "Сармат 2.0"</h1>
+            <form id="applicationForm">
+                <input type="email" id="email" placeholder="Ваш Email" required>
+                <input type="text" id="robloxNickname" placeholder="Ваш ник в Roblox" required>
+                <input type="text" id="discordNickname" placeholder="Discord (например: user#1234)" required>
+                <input type="text" id="callsign" placeholder="Позывной" required>
+                <input type="number" id="age" placeholder="Возраст" required>
+                <textarea id="motivation" placeholder="Почему вы хотите вступить?"></textarea>
+                <button type="submit">Отправить заявку</button>
+            </form>
+            <div id="statusMessage" class="status-message"></div>
+        </div>
+    </main>
+
+    <!-- Подключаем Firebase и скрипты -->
+    <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-auth-compat.js"></script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBJ6VkW6Kru9xLnyN8G1EvS4gKESEoHH68",
+            authDomain: "authentication-cf670.firebaseapp.com",
+            projectId: "authentication-cf670",
+            storageBucket: "authentication-cf670.appspot.com",
+            messagingSenderId: "135324689233",
+            appId: "1:135324689233:web:e0956a8ee78ca5aeff2970",
+            measurementId: "G-VXJY0F36N1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            try {
+                submitBtn.disabled = true;
+                statusMessage.textContent = "Отправка...";
+                statusMessage.style.color = "#FFA500";
+
+                const formData = {
+                    email: form.email.value,
+                    robloxNickname: form.robloxNickname.value,
+                    discordNickname: form.discordNickname.value,
+                    callsign: form.callsign.value,
+                    age: parseInt(form.age.value),
+                    motivation: form.motivation.value,
+                    status: "pending",
+                    createdAt: new Date()
+                };
+
+                await addDoc(collection(db, "applications"), formData);
+                
+                statusMessage.textContent = "✔ Заявка отправлена!";
+                statusMessage.style.color = "#4CAF50";
+                form.reset();
+                
+            } catch (error) {
+                console.error("Ошибка:", error);
+                statusMessage.textContent = "❌ Ошибка: " + error.message;
+                statusMessage.style.color = "#ff5555";
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧВК "Сармат 2.0" | Галерея</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Только стили для вкладок */
+        .gallery-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        .gallery-tab {
+            padding: 10px 25px;
+            margin: 0 5px;
+            cursor: pointer;
+            background: rgba(30,30,30,0.7);
+            color: #e0e0e0;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+        }
+        .gallery-tab:hover, .gallery-tab.active {
+            background: #ff5555;
+            color: #000;
+        }
+        .gallery-content {
+            display: none;
+        }
+        .gallery-content.active {
+            display: block;
+        }
+    </style>
+	<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Titillium Web', sans-serif;
+    }
+    .photo-overlay {
+        font-family: 'Courier New', monospace;
+    }
+</style>
+</head>
+<body>
+    <div class="grid"></div>
+    <header>
+        <img src="images/logo.png" alt="ЧВК Сармат" class="logo">
+    </header>
+    <nav class="sidebar">
+    <!-- Кнопка профиля вверху -->
+    <div class="profile-btn-container">
+        <button class="profile-btn" onclick="window.location='profile.html'">Досье</button>
+    </div>
+    
+    <!-- Основное меню ниже -->
+    <ul class="main-menu">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="history.html">История</a></li>
+        <li><a href="gallery.html">Галерея</a></li>
+        <li><a href="join.html">Вступление</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+    </ul>
+</nav>
+    <main>
+        <div class="gallery-container">
+            <h1>Галерея операций</h1>
+            
+            <div class="gallery-tabs">
+                <div class="gallery-tab active" onclick="showGallery('photos')">Фотоархив</div>
+                <div class="gallery-tab" onclick="showGallery('videos')">Видеоматериалы</div>
+            </div>
+            
+            <div id="photos-content" class="gallery-content active">
+                <div class="photo-grid">
+                    <div class="photo-item">
+                        <div class="photo-frame">
+                            <img src="images/war1.jpg" alt="Боевая операция">
+                            <div class="photo-overlay">
+                                <p>Операция "Щит Севера", 2022 год</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Остальные фото по аналогии -->
+                    <div class="photo-item">
+                        <div class="photo-frame">
+                            <img src="images/war2.jpg" alt="Тренировка">
+                            <div class="photo-overlay">
+                                <p>Тренировочные сборы, 2023 год</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-frame">
+                            <img src="images/war3.jpg" alt="Техника">
+                            <div class="photo-overlay">
+                                <p>Бронетехника "Тайфун-К"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <div class="photo-frame">
+                            <img src="images/war4.jpg" alt="Награждение">
+                            <div class="photo-overlay">
+                                <p>Церемония награждения</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="videos-content" class="gallery-content">
+                <div class="video-placeholder">
+                    <p>Видеоархив доступен только для авторизованных членов подразделения</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="js/script.js"></script>
+    <script>
+        function showGallery(type) {
+            document.querySelectorAll('.gallery-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`${type}-content`).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+	<!-- Добавить перед закрывающим </body> -->
+<div id="photo-modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-image">
+    <div class="caption" id="modal-caption"></div>
+</div>
+</body>
+</html>

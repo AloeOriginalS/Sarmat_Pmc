@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧВК "Сармат 2.0" | Главная</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="no-scroll">
+    <div class="grid"></div>
+    <header>
+        <img src="images/logo.png" alt="ЧВК Сармат" class="logo">
+    </header>
+    <nav class="sidebar">
+    <!-- Кнопка профиля вверху -->
+    <div class="profile-btn-container">
+        <button class="profile-btn" onclick="window.location='profile.html'">Досье</button>
+    </div>
+    
+    <!-- Основное меню ниже -->
+    <ul class="main-menu">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="history.html">История</a></li>
+        <li><a href="gallery.html">Галерея</a></li>
+        <li><a href="join.html">Вступление</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+    </ul>
+</nav>
+    <main>
+        <div class="hero-slider">
+            <!-- Слайды -->
+            <div class="slide active">
+                <img src="images/slide1.jpg" alt="Операция Север">
+                <div class="slide-caption">
+                    <h2>ОПЕРАЦИЯ "СЕВЕРНЫЙ ЩИТ"</h2>
+                    <p>Спецподразделение "Варяг" в боевых условиях</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/slide2.jpg" alt="Тренировки">
+                <div class="slide-caption">
+                    <h2>ПОДГОТОВКА НОВОГО СОСТАВА</h2>
+                    <p>Интенсивные тренировки на полигоне "Булат"</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/slide3.jpg" alt="Техника">
+                <div class="slide-caption">
+                    <h2>ТЕХНИЧЕСКОЕ ОСНАЩЕНИЕ</h2>
+                    <p>Бронированные автомобили "Тайфун-К" в действии</p>
+                </div>
+            </div>
+            
+            <!-- Навигационные точки -->
+            <div class="slider-nav">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </main>
+    <script src="js/script.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-auth-compat.js"></script>
+
+<script src="/js/firebase-config.js" type="module"></script>
+
+	<script type="module">
+  import { auth } from './js/firebase-config.js';
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  // Проверка авторизации для меню
+  onAuthStateChanged(auth, (user) => {
+    const profileBtn = document.querySelector('.profile-btn');
+    if (user) {
+      profileBtn.textContent = "Мой профиль";
+    } else {
+      profileBtn.textContent = "Войти";
+    }
+  });
+</script>
+</body>
+</html>
+

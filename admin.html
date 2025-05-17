@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель ЧВК "Сармат"</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container {
+            padding: 30px;
+            background: rgba(10,10,10,0.95);
+            min-height: 100vh;
+            color: #e0e0e0;
+            margin-left: 220px; /* Отступ для сайдбара */
+        }
+
+        .application-card {
+            background: rgba(30,30,30,0.7);
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .application-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .application-actions button {
+            background: none;
+            border: 1px solid;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+        }
+
+        .approve-btn {
+            border-color: #4CAF50;
+            color: #4CAF50;
+        }
+
+        .reject-btn {
+            border-color: #ff5555;
+            color: #ff5555;
+        }
+
+        .application-actions button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Стили статусов */
+        .status-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .status-approved { background: rgba(76,175,80,0.2); border-color: #4CAF50; }
+        .status-pending { background: rgba(255,165,0,0.2); border-color: #FFA500; }
+        .status-rejected { background: rgba(255,85,85,0.2); border-color: #ff5555; }
+    </style>
+</head>
+<body>
+    <!-- Сайдбар -->
+    <nav class="sidebar">
+        <div class="profile-btn-container">
+            <button class="profile-btn" onclick="window.location='profile.html'">Профиль</button>
+        </div>
+        <ul class="main-menu">
+            <li><a href="admin.html">Админ-панель</a></li>
+            <li><a href="index.html">На главную</a></li>
+        </ul>
+    </nav>
+
+    <div class="admin-container">
+    <h1 style="...">ЗАЯВКИ НА ВСТУПЛЕНИЕ</h1>
+    <div id="applicationsList" class="applications-list"></div> <!-- Добавлен класс -->
+</div>
+
+    <script src="js/firebase-config.js" type="module"></script>
+    <script src="js/admin-panel.js" type="module"></script>
+</body>
+</html>
